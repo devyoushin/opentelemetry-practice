@@ -1,0 +1,128 @@
+# DaemonSet 방식 Collector
+# 각 노드에서 컨테이너 로그(filelog)와 kubelet 메트릭(kubeletstats)을 수집
+#
+# kubectl apply -f collector/otelcol-daemonset.yaml
+
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: otelcol-daemonset
+  namespace: monitoring
+spec:
+  mode: daemonset
+
+  # kubeletstats receiver가 노드 정보에 접근하려면 hostNetwork 필요
+  hostNetwork: false
+
+  # 컨테이너 로그 파일 마운트
+  volumeMounts:
+  - name: varlogpods
+    mountPath: /var/log/pods
+    readOnly: true
+  - name: varlibdockercontainers
+    mountPath: /var/lib/docker/containers
+    readOnly: true
+
+  volumes:
+  - name: varlogpods
+    hostPath:
+      path: /var/log/pods
+  - name: varlibdockercontainers
+    hostPath:
+      path: /var/lib/docker/containers
+
+  env:
+  - name: K8S_NODE_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.nodeName
+
+  config: |
+    receivers:
+      # 컨테이너 로그 파일 수집
+      filelog:
+        include:
+          - /var/log/pods/*/*/*.log
+        exclude:
+          - /var/log/pods/monitoring_*/*/*.log    # monitoring 네임스페이스 제외
+        include_file_path: true
+        include_file_name: false
+        operators:
+          # Kubernetes CRI 로그 형식 파싱
+          - type: container
+            id: container-parser
+          # JSON 로그인 경우 파싱
+          - type: json_parser
+            id: json-parser
+            if: 'body matches "^\\{"'
+            parse_from: body
+            parse_to: body
+
+      # 노드/Pod/컨테이너 메트릭 (kubelet API)
+      kubeletstats:
+        collection_interval: 20s
+        auth_type: serviceAccount
+        endpoint: "${env:K8S_NODE_NAME}:10250"
+        insecure_skip_verify: true
+        metric_groups:
+          - node
+          - pod
+          - container
+
+    processors:
+      memory_limiter:
+        check_interval: 1s
+        limit_mib: 300
+        spike_limit_mib: 75
+
+      k8sattributes:
+        auth_type: serviceAccount
+        passthrough: false
+        extract:
+          metadata:
+            - k8s.namespace.name
+            - k8s.deployment.name
+            - k8s.pod.name
+            - k8s.node.name
+            - k8s.container.name
+        pod_association:
+          - sources:
+              - from: resource_attribute
+                name: k8s.pod.uid
+
+      resource:
+        attributes:
+          - key: cluster.name
+            value: my-eks-cluster
+            action: insert
+
+      batch:
+        timeout: 2s
+        send_batch_size: 512
+
+    exporters:
+      # 로그 → Loki
+      loki:
+        endpoint: http://loki.monitoring:3100/loki/api/v1/push
+
+      # 메트릭 → Gateway Collector (또는 Prometheus 직접)
+      otlphttp:
+        endpoint: http://otelcol-deployment-collector.monitoring:4318
+        tls:
+          insecure: true
+
+    service:
+      pipelines:
+        logs:
+          receivers: [filelog]
+          processors: [memory_limiter, k8sattributes, resource, batch]
+          exporters: [loki]
+
+        metrics:
+          receivers: [kubeletstats]
+          processors: [memory_limiter, k8sattributes, resource, batch]
+          exporters: [otlphttp]
+
+      telemetry:
+        metrics:
+          address: 0.0.0.0:8888

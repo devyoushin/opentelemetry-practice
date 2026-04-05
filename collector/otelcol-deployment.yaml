@@ -1,0 +1,96 @@
+# Deployment 방식 Collector (Gateway)
+# 앱에서 OTLP로 트레이스를 받아 Tempo / Prometheus / Loki로 전달
+#
+# kubectl apply -f collector/otelcol-deployment.yaml
+
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: otelcol-deployment
+  namespace: monitoring
+spec:
+  mode: deployment
+  replicas: 1
+
+  config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+
+    processors:
+      memory_limiter:
+        check_interval: 1s
+        limit_mib: 400
+        spike_limit_mib: 100
+
+      # Kubernetes 메타데이터 자동 부착
+      k8sattributes:
+        auth_type: serviceAccount
+        passthrough: false
+        extract:
+          metadata:
+            - k8s.namespace.name
+            - k8s.deployment.name
+            - k8s.pod.name
+            - k8s.node.name
+        pod_association:
+          - sources:
+              - from: resource_attribute
+                name: k8s.pod.ip
+          - sources:
+              - from: connection
+
+      # 공통 리소스 속성 추가
+      resource:
+        attributes:
+          - key: cluster.name
+            value: my-eks-cluster
+            action: insert
+
+      batch:
+        timeout: 1s
+        send_batch_size: 1024
+
+    exporters:
+      # 트레이스 → Tempo
+      otlp:
+        endpoint: tempo.monitoring:4317
+        tls:
+          insecure: true
+
+      # 메트릭 → Prometheus (스크레이핑 방식)
+      prometheus:
+        endpoint: "0.0.0.0:8889"
+
+      # 로그 → Loki
+      loki:
+        endpoint: http://loki.monitoring:3100/loki/api/v1/push
+
+      # 디버깅용 (개발 시에만 활성화)
+      # debug:
+      #   verbosity: detailed
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [memory_limiter, k8sattributes, resource, batch]
+          exporters: [otlp]
+
+        metrics:
+          receivers: [otlp]
+          processors: [memory_limiter, resource, batch]
+          exporters: [prometheus]
+
+        logs:
+          receivers: [otlp]
+          processors: [memory_limiter, k8sattributes, resource, batch]
+          exporters: [loki]
+
+      telemetry:
+        metrics:
+          address: 0.0.0.0:8888    # Collector 자체 메트릭 노출

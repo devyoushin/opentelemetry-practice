@@ -1,0 +1,56 @@
+# Auto Instrumentation CR
+# OTel Operator가 이 CR을 참조해 언어별 에이전트를 Pod에 자동 주입
+#
+# 사용법: Deployment에 아래 어노테이션 추가
+#   instrumentation.opentelemetry.io/inject-python: "my-instrumentation"
+#   instrumentation.opentelemetry.io/inject-java:   "my-instrumentation"
+#   instrumentation.opentelemetry.io/inject-nodejs: "my-instrumentation"
+#
+# kubectl apply -f collector/instrumentation.yaml
+
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+metadata:
+  name: my-instrumentation
+  namespace: default
+spec:
+  # 트레이스를 전송할 Collector 주소
+  exporter:
+    endpoint: http://otelcol-deployment-collector.monitoring:4317
+
+  # 컨텍스트 전파 방식
+  propagators:
+    - tracecontext    # W3C TraceContext (표준)
+    - baggage
+
+  # 샘플링 설정
+  sampler:
+    type: parentbased_traceidratio
+    argument: "1.0"   # 100% (개발/테스트용)
+                      # 운영에서는 "0.1" (10%) 권장
+
+  # Python 에이전트 설정
+  python:
+    image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-python:latest
+    env:
+      - name: OTEL_LOGS_EXPORTER
+        value: otlp
+      - name: OTEL_PYTHON_LOG_CORRELATION
+        value: "true"    # 로그에 trace_id 자동 삽입
+
+  # Java 에이전트 설정
+  java:
+    image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-java:latest
+    env:
+      - name: OTEL_INSTRUMENTATION_JDBC_ENABLED
+        value: "true"
+      - name: OTEL_INSTRUMENTATION_SPRING_WEBMVC_ENABLED
+        value: "true"
+
+  # Node.js 에이전트 설정
+  nodejs:
+    image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-nodejs:latest
+
+  # Go 에이전트 설정 (eBPF 기반, 코드 수정 없음)
+  go:
+    image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-go:latest

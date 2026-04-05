@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  namespace: default
+  labels:
+    app: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+      annotations:
+        # OTel Operator가 Python 에이전트를 자동 주입
+        # (Instrumentation CR이 배포된 네임스페이스 기준)
+        instrumentation.opentelemetry.io/inject-python: "my-instrumentation"
+    spec:
+      containers:
+      - name: my-app
+        image: python:3.11-slim
+        command:
+        - python
+        - -c
+        - |
+          # 간단한 HTTP 서버 (OTLP 트레이스 자동 계측됨)
+          import http.server
+          import json
+          import time
+          import random
+
+          class Handler(http.server.BaseHTTPRequestHandler):
+              def do_GET(self):
+                  # 랜덤 지연 (슬로우 쿼리 시뮬레이션)
+                  delay = random.uniform(0.01, 0.2)
+                  if random.random() < 0.05:   # 5% 확률로 느린 응답
+                      delay = random.uniform(1.0, 3.0)
+                  time.sleep(delay)
+
+                  if self.path == '/api/users':
+                      self.send_response(200)
+                      self.send_header('Content-Type', 'application/json')
+                      self.end_headers()
+                      self.wfile.write(json.dumps({"users": [{"id": 1}]}).encode())
+                  elif self.path == '/health':
+                      self.send_response(200)
+                      self.end_headers()
+                      self.wfile.write(b'ok')
+                  else:
+                      self.send_response(404)
+                      self.end_headers()
+
+              def log_message(self, format, *args):
+                  # JSON 형식으로 로그 출력 (trace_id는 OTel Agent가 자동 삽입)
+                  import sys
+                  print(json.dumps({
+                      "level": "info",
+                      "message": format % args,
+                      "path": self.path,
+                  }), file=sys.stdout)
+
+          server = http.server.HTTPServer(('', 8080), Handler)
+          server.serve_forever()
+        ports:
+        - containerPort: 8080
+        env:
+        - name: OTEL_SERVICE_NAME
+          value: my-app
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: "k8s.namespace.name=default,k8s.deployment.name=my-app"
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
