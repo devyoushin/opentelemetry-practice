@@ -53,7 +53,7 @@ kubectl get pod -l app=my-app -o jsonpath='{.items[0].metadata.annotations}'
 
 **해결**: Instrumentation CR 생성 후 Pod 재시작
 ```bash
-kubectl apply -f collector/instrumentation.yaml
+kubectl apply -f ../ops/config/collector/instrumentation.yaml
 kubectl rollout restart deployment/my-app
 ```
 

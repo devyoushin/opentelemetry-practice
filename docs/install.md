@@ -95,7 +95,7 @@ kubectl get crd | grep opentelemetry
 앱에서 OTLP로 트레이스/메트릭을 받아 백엔드로 전달하는 중앙 집중 방식입니다.
 
 ```bash
-kubectl apply -f collector/otelcol-deployment.yaml
+kubectl apply -f ../ops/config/collector/otelcol-deployment.yaml
 ```
 
 설치 확인:
@@ -114,7 +114,7 @@ kubectl get svc -n monitoring -l app.kubernetes.io/name=otelcol-deployment
 각 노드에서 컨테이너 로그(filelog)와 kubelet 메트릭을 수집합니다.
 
 ```bash
-kubectl apply -f collector/otelcol-daemonset.yaml
+kubectl apply -f ../ops/config/collector/otelcol-daemonset.yaml
 ```
 
 설치 확인:
@@ -134,7 +134,7 @@ kubectl get daemonset -n monitoring
 언어별 에이전트 자동 주입 설정을 생성합니다.
 
 ```bash
-kubectl apply -f collector/instrumentation.yaml
+kubectl apply -f ../ops/config/collector/instrumentation.yaml
 
 # 생성 확인
 kubectl get instrumentation -n default
@@ -196,8 +196,8 @@ helm upgrade opentelemetry-operator open-telemetry/opentelemetry-operator \
   --set "manager.collectorImage.repository=otel/opentelemetry-collector-contrib"
 
 # Collector는 CR 재적용 (Operator가 관리)
-kubectl apply -f collector/otelcol-deployment.yaml
-kubectl apply -f collector/otelcol-daemonset.yaml
+kubectl apply -f ../ops/config/collector/otelcol-deployment.yaml
+kubectl apply -f ../ops/config/collector/otelcol-daemonset.yaml
 
 # 업그레이드 히스토리 확인
 helm history opentelemetry-operator -n monitoring
@@ -218,9 +218,9 @@ helm rollback opentelemetry-operator 1 -n monitoring
 
 ```bash
 # Collector CR 삭제 (Operator가 관련 리소스 정리)
-kubectl delete -f collector/otelcol-deployment.yaml
-kubectl delete -f collector/otelcol-daemonset.yaml
-kubectl delete -f collector/instrumentation.yaml
+kubectl delete -f ../ops/config/collector/otelcol-deployment.yaml
+kubectl delete -f ../ops/config/collector/otelcol-daemonset.yaml
+kubectl delete -f ../ops/config/collector/instrumentation.yaml
 
 # OTel Operator 삭제
 helm uninstall opentelemetry-operator -n monitoring

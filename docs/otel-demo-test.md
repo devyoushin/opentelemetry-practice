@@ -17,10 +17,10 @@
 
 ```bash
 # Gateway Collector (앱 OTLP 수신 → Tempo / Prometheus / Loki)
-kubectl apply -f collector/otelcol-deployment.yaml
+kubectl apply -f ../ops/config/collector/otelcol-deployment.yaml
 
 # DaemonSet Collector (노드 로그 + kubelet 메트릭)
-kubectl apply -f collector/otelcol-daemonset.yaml
+kubectl apply -f ../ops/config/collector/otelcol-daemonset.yaml
 
 # 상태 확인
 kubectl get pods -n monitoring
@@ -37,7 +37,7 @@ Everything is ready. Begin running and processing data.
 ## Step 2: Auto Instrumentation CR 생성
 
 ```bash
-kubectl apply -f collector/instrumentation.yaml
+kubectl apply -f ../ops/config/collector/instrumentation.yaml
 
 # 생성 확인
 kubectl get instrumentation -n default
@@ -50,8 +50,8 @@ kubectl get instrumentation -n default
 ## Step 3: 샘플 앱 배포
 
 ```bash
-kubectl apply -f app/deployment.yaml
-kubectl apply -f app/service.yaml
+kubectl apply -f ../ops/config/app/deployment.yaml
+kubectl apply -f ../ops/config/app/service.yaml
 
 # Pod 확인
 kubectl get pods -l app=my-app
@@ -285,15 +285,15 @@ echo "=== 검증 완료 ==="
 
 ```bash
 # 샘플 앱 삭제
-kubectl delete -f app/deployment.yaml
-kubectl delete -f app/service.yaml
+kubectl delete -f ../ops/config/app/deployment.yaml
+kubectl delete -f ../ops/config/app/service.yaml
 
 # Instrumentation CR 삭제
-kubectl delete -f collector/instrumentation.yaml
+kubectl delete -f ../ops/config/collector/instrumentation.yaml
 
 # Collector 삭제
-kubectl delete -f collector/otelcol-deployment.yaml
-kubectl delete -f collector/otelcol-daemonset.yaml
+kubectl delete -f ../ops/config/collector/otelcol-deployment.yaml
+kubectl delete -f ../ops/config/collector/otelcol-daemonset.yaml
 
 # OTel Operator 삭제
 helm uninstall opentelemetry-operator -n monitoring

@@ -22,7 +22,7 @@ OTel Operator의 `Instrumentation` CR을 사용하면 Pod에 언어별 에이전
 ### Instrumentation CR 생성
 
 ```yaml
-# collector/instrumentation.yaml
+# ../ops/config/collector/instrumentation.yaml
 apiVersion: opentelemetry.io/v1alpha1
 kind: Instrumentation
 metadata:
@@ -58,7 +58,7 @@ spec:
 ```
 
 ```bash
-kubectl apply -f collector/instrumentation.yaml
+kubectl apply -f ../ops/config/collector/instrumentation.yaml
 ```
 
 ### Pod에 자동 계측 활성화
@@ -82,7 +82,7 @@ spec:
 ```
 
 ```bash
-kubectl apply -f app/deployment.yaml
+kubectl apply -f ../ops/config/app/deployment.yaml
 
 # 에이전트가 init container로 주입되었는지 확인
 kubectl describe pod -l app=my-app | grep -A5 "Init Containers"
