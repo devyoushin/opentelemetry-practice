@@ -7,4 +7,4 @@ OpenTelemetry 운영 보조 자료를 두는 공간입니다.
 | `config/collector/` | Collector Deployment/DaemonSet, Instrumentation CR |
 | `config/app/` | 계측된 샘플 애플리케이션 매니페스트 |
 
-운영 개념과 절차 문서는 `docs/`에 두고, 실제 적용 가능한 매니페스트와 설정 예시는 `ops/`에 둡니다.
+운영 개념과 절차 문서는 `docs/`에 두고, 실제 적용 가능한 매니페스트와 설정 예시는 `ops/`에 둡니다. 설치 방식은 `docs/install.md`에서 Helm, systemd, Docker Compose로 나눠 설명합니다.

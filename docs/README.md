@@ -4,7 +4,7 @@ OpenTelemetry 문서는 학습 문서, 규칙, 템플릿, 에이전트 프롬프
 
 | 폴더/문서 | 내용 |
 |------|------|
-| `install.md` | OTel Operator와 Collector 설치 |
+| `install.md` | Helm, systemd, Docker Compose 설치 |
 | `architecture-guide.md` | 전체 수집 아키텍처 |
 | `collector-guide.md` | Receiver, Processor, Exporter 파이프라인 |
 | `tracing-guide.md` | Trace, Span, Context Propagation |

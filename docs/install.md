@@ -245,3 +245,24 @@ kubectl delete namespace monitoring
 | `CRD not found` 에러 | Operator 설치 전 CR 적용 시도 | Operator Pod Running 확인 후 CR 재적용 |
 | DaemonSet Pod 수 부족 | 노드 Taint / Toleration 미설정 | DaemonSet에 tolerations 추가 |
 | OTLP gRPC 연결 실패 | 서비스 이름/네임스페이스 오류 | `kubectl get svc -n monitoring` 확인 |
+
+
+---
+
+## systemd 설치
+
+Kubernetes 없이 단일 VM이나 베어메탈에서 돌릴 때는 바이너리를 내려받아 systemd로 관리합니다.
+
+1. 바이너리 또는 패키지를 설치합니다.
+2. 설정 파일을 /etc/<component>/ 아래에 둡니다.
+3. `systemctl enable --now <service>`로 등록합니다.
+4. `journalctl -u <service> -f`로 로그를 확인합니다.
+
+## Docker Compose 설치
+
+로컬 개발이나 빠른 검증은 Docker Compose가 가장 간단합니다.
+
+1. `compose.yaml`을 만들고 이미지, 포트, 볼륨을 정의합니다.
+2. `docker compose up -d`로 올립니다.
+3. `docker compose logs -f`와 `docker compose ps`로 상태를 확인합니다.
+4. 개발용은 같은 설정을 유지하되, 운영용은 Helm 또는 systemd를 사용합니다.
