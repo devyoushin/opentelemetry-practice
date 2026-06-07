@@ -44,7 +44,7 @@ opentelemetry-practice/
 
 | 문서 | 주제 |
 |------|------|
-| `docs/install.md` | OTel Collector 설치 (Helm + Operator) |
+| `docs/install/install.md` | OTel Collector 설치 (Helm + Operator) |
 | `docs/architecture-guide.md` | OpenTelemetry 아키텍처 |
 | `docs/collector-guide.md` | Collector 파이프라인 설정 |
 | `docs/instrumentation-guide.md` | SDK 계측 (자동/수동) |

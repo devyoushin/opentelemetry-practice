@@ -32,8 +32,8 @@ curl http://localhost:8888/metrics | grep otelcol_process_uptime
 
 ```bash
 helm upgrade opentelemetry-operator open-telemetry/opentelemetry-operator -n monitoring
-kubectl apply -f ../ops/config/collector/otelcol-deployment.yaml
-kubectl apply -f ../ops/config/collector/otelcol-daemonset.yaml
+kubectl apply -f ../../ops/config/collector/otelcol-deployment.yaml
+kubectl apply -f ../../ops/config/collector/otelcol-daemonset.yaml
 helm rollback opentelemetry-operator 1 -n monitoring
 helm uninstall opentelemetry-operator -n monitoring
 ```

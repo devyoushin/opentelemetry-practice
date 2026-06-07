@@ -6,23 +6,24 @@ OpenTelemetry를 처음 보는 사람이 설치부터 계측과 백엔드 연동
 
 | 순서 | 문서 | 용도 |
 |------|------|------|
-| 1 | `install.md` | Helm, systemd, Docker Compose 설치 방식 |
-| 2 | `architecture-guide.md` | 전체 수집 아키텍처 |
-| 3 | `collector-guide.md` | Receiver, Processor, Exporter 파이프라인 |
-| 4 | `tracing-guide.md`, `metrics-guide.md`, `logging-guide.md` | Trace/Metric/Log 이해 |
-| 5 | `instrumentation-guide.md`, `sampling-guide.md` | 계측과 샘플링 |
-| 6 | `backend-integration-guide.md` | Tempo, Prometheus, Loki, Grafana 연동 |
-| 7 | `otel-demo-test.md`, `troubleshooting-guide.md` | 실습과 문제 해결 |
-| 8 | `rules/README.md` | 문서와 운영 규칙 |
-| 9 | `agents/README.md` | AI 작업 지침 |
-| 10 | `templates/README.md` | 문서 템플릿 |
-| 11 | `../ops/README.md` | 실제 실행 자산과 운영 방법 |
+| 1 | `install/install.md` | Helm, systemd, Docker Compose 설치 방식 |
+| 2 | `install/upgrade/` | OpenTelemetry 업그레이드 |
+| 3 | `architecture-guide.md` | 전체 수집 아키텍처 |
+| 4 | `collector-guide.md` | Receiver, Processor, Exporter 파이프라인 |
+| 5 | `tracing-guide.md`, `metrics-guide.md`, `logging-guide.md` | Trace/Metric/Log 이해 |
+| 6 | `instrumentation-guide.md`, `sampling-guide.md` | 계측과 샘플링 |
+| 7 | `backend-integration-guide.md` | Tempo, Prometheus, Loki, Grafana 연동 |
+| 8 | `otel-demo-test.md`, `troubleshooting-guide.md` | 실습과 문제 해결 |
+| 9 | `rules/README.md` | 문서와 운영 규칙 |
+| 10 | `agents/README.md` | AI 작업 지침 |
+| 11 | `templates/README.md` | 문서 템플릿 |
+| 12 | `../ops/README.md` | 실제 실행 자산과 운영 방법 |
 
 ## 문서 구조
 
 | 구분 | 문서 |
 |------|------|
-| 설치/기초 | `install.md`, `architecture-guide.md`, `collector-guide.md` |
+| 설치/기초 | `install/install.md`, `install/upgrade/`, `architecture-guide.md`, `collector-guide.md` |
 | Signal | `tracing-guide.md`, `metrics-guide.md`, `logging-guide.md` |
 | 계측/샘플링 | `instrumentation-guide.md`, `sampling-guide.md` |
 | 백엔드/운영 | `backend-integration-guide.md`, `otel-demo-test.md`, `troubleshooting-guide.md` |
@@ -30,18 +31,19 @@ OpenTelemetry를 처음 보는 사람이 설치부터 계측과 백엔드 연동
 
 ## 읽는 순서
 
-1. `install.md`
-2. `architecture-guide.md`
-3. `collector-guide.md`
-4. `tracing-guide.md`
-5. `metrics-guide.md`
-6. `logging-guide.md`
-7. `instrumentation-guide.md`
-8. `sampling-guide.md`
-9. `backend-integration-guide.md`
-10. `rules/README.md`
-11. `agents/README.md`
-12. `templates/README.md`
+1. `install/install.md`
+2. `install/upgrade/`
+3. `architecture-guide.md`
+4. `collector-guide.md`
+5. `tracing-guide.md`
+6. `metrics-guide.md`
+7. `logging-guide.md`
+8. `instrumentation-guide.md`
+9. `sampling-guide.md`
+10. `backend-integration-guide.md`
+11. `rules/README.md`
+12. `agents/README.md`
+13. `templates/README.md`
 
 ## 관련 경로
 
