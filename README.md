@@ -1,41 +1,57 @@
 # opentelemetry-practice
 
-EKS + OpenTelemetry Operator/Collector 기준으로 계측, Collector 파이프라인, traces/metrics/logs 수집, 샘플링, 백엔드 연동을 정리한 개인 학습 문서입니다.
+EKS 환경에서 OpenTelemetry Operator와 Collector를 사용해 traces, metrics, logs를 수집하고 Grafana Tempo, Prometheus, Loki로 연동하는 과정을 정리한 학습 문서입니다.
 
-## 빠른 시작
+## 먼저 볼 문서
 
-- 처음 볼 문서: `docs/install/install.md`
-- 설치 방식: Helm / systemd / Docker Compose
-- 전체 흐름: 설치 -> 아키텍처 -> Collector -> traces/metrics/logs -> 계측/샘플링 -> 백엔드 연동
-- AI 작업 지침: `CLAUDE.md`
+| 목적 | 문서 |
+|------|------|
+| 전체 문서 목차 보기 | [docs/README.md](docs/README.md) |
+| 설치 방식 고르기 | [docs/install/install.md](docs/install/install.md) |
+| EKS에 Helm으로 설치하기 | [docs/install/install-helm.md](docs/install/install-helm.md) |
+| 전체 아키텍처 이해하기 | [docs/architecture-guide.md](docs/architecture-guide.md) |
+| Collector 파이프라인 이해하기 | [docs/collector-guide.md](docs/collector-guide.md) |
+| 직접 실습하기 | [docs/otel-demo-test.md](docs/otel-demo-test.md) |
+| 장애를 진단하기 | [docs/troubleshooting-guide.md](docs/troubleshooting-guide.md) |
 
-## 구조
+## 추천 학습 순서
+
+1. [설치 안내](docs/install/install.md)
+2. [아키텍처](docs/architecture-guide.md)
+3. [Collector 파이프라인](docs/collector-guide.md)
+4. [Tracing](docs/tracing-guide.md), [Metrics](docs/metrics-guide.md), [Logging](docs/logging-guide.md)
+5. [계측](docs/instrumentation-guide.md), [샘플링](docs/sampling-guide.md)
+6. [백엔드 연동](docs/backend-integration-guide.md)
+7. [End-to-End 실습](docs/otel-demo-test.md)
+8. [트러블슈팅](docs/troubleshooting-guide.md)
+
+## 디렉터리 구조
 
 ```text
 opentelemetry-practice/
 ├── README.md
-├── CLAUDE.md
+├── CLAUDE.md       # AI 작업 지침
 ├── docs/
-│   ├── README.md
-│   ├── agents/
-│   ├── rules/
-│   ├── templates/
-│   └── *.md
+│   ├── README.md  # 문서 전체 목차
+│   ├── install/   # 설치/업그레이드
+│   ├── agents/    # AI 역할별 작업 지침
+│   ├── rules/     # 문서/운영 규칙
+│   ├── templates/ # 서비스 문서, 런북, 장애 보고서 템플릿
+│   └── *.md       # 주제별 가이드
 └── ops/
-    ├── README.md
-    └── config/     # Collector, Instrumentation, 샘플 앱 매니페스트
+    ├── README.md  # 운영 자산 설명
+    └── config/    # Collector, Instrumentation, 샘플 앱 매니페스트
 ```
 
-## 학습 경로
+## 문서 분류
 
-| 단계 | 문서 |
+| 분류 | 내용 |
 |------|------|
-| 설치 | `docs/install/install.md` |
-| 핵심 개념 | `docs/architecture-guide.md`, `docs/collector-guide.md`, `docs/tracing-guide.md` |
-| Signal | `docs/metrics-guide.md`, `docs/logging-guide.md` |
-| 계측/샘플링 | `docs/instrumentation-guide.md`, `docs/sampling-guide.md` |
-| 백엔드 | `docs/backend-integration-guide.md` |
-| 문제 해결 | `docs/troubleshooting-guide.md`, `docs/otel-demo-test.md` |
+| 설치 | Helm, systemd, Docker Compose, 업그레이드 |
+| 핵심 개념 | 아키텍처, Collector, trace/metric/log |
+| 구현 | 계측, 샘플링, 백엔드 연동 |
+| 실습/운영 | End-to-End 테스트, 트러블슈팅, 운영 자산 |
+| 문서 운영 | 작성 규칙, 템플릿, AI 작업 지침 |
 
 ## 환경
 
@@ -46,3 +62,7 @@ opentelemetry-practice/
 | Collector | OpenTelemetry Collector Contrib |
 | Namespace | `monitoring` |
 | Backends | Tempo, Prometheus, Loki, Grafana |
+
+## 운영 자산
+
+실제 적용 가능한 Collector, Instrumentation, 샘플 앱 매니페스트는 [ops/README.md](ops/README.md)와 `ops/config/` 아래에 둡니다.
