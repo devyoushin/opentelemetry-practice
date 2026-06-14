@@ -19,6 +19,12 @@ opentelemetry-practice/
 │   ├── settings.json
 │   └── commands/              # /new-doc, /new-runbook, /review-doc, /add-troubleshooting, /search-kb
 ├── docs/                      # 주제별 가이드 문서, agents/rules/templates
+│   ├── architecture/          # OpenTelemetry 전체 구조와 데이터 흐름
+│   ├── collector/             # Collector 파이프라인과 component 구성
+│   ├── signals/               # trace, metric, log signal별 가이드
+│   ├── instrumentation/       # 앱 계측, 샘플링, 백엔드 연동
+│   ├── operations/            # 장애 진단과 운영 대응
+│   ├── practice/              # End-to-End 실습
 │   ├── agents/                # doc-writer, collector-designer, instrumentation-advisor, troubleshooter
 │   ├── templates/             # service-doc, runbook, incident-report
 │   └── rules/                 # doc-writing, opentelemetry-conventions, security-checklist, monitoring
@@ -34,7 +40,7 @@ opentelemetry-practice/
 |--------|------|---------|
 | `/new-doc` | 새 가이드 문서 생성 | `/new-doc tail-sampling-processor` |
 | `/new-runbook` | 새 런북 생성 | `/new-runbook Collector 메모리 OOM 대응` |
-| `/review-doc` | 문서 검토 | `/review-doc docs/collector-guide.md` |
+| `/review-doc` | 문서 검토 | `/review-doc docs/collector/collector-guide.md` |
 | `/add-troubleshooting` | 트러블슈팅 케이스 추가 | `/add-troubleshooting Span 누락` |
 | `/search-kb` | 지식베이스 검색 | `/search-kb OTel Sampling 전략` |
 
@@ -45,16 +51,16 @@ opentelemetry-practice/
 | 문서 | 주제 |
 |------|------|
 | `docs/install/install.md` | OTel Collector 설치 (Helm + Operator) |
-| `docs/architecture-guide.md` | OpenTelemetry 아키텍처 |
-| `docs/collector-guide.md` | Collector 파이프라인 설정 |
-| `docs/instrumentation-guide.md` | SDK 계측 (자동/수동) |
-| `docs/tracing-guide.md` | Distributed Tracing |
-| `docs/metrics-guide.md` | OTLP 메트릭 수집 |
-| `docs/logging-guide.md` | 로그 수집 (Filelog Receiver) |
-| `docs/sampling-guide.md` | Sampling 전략 |
-| `docs/backend-integration-guide.md` | 백엔드 연동 (Tempo, Prometheus, Loki) |
-| `docs/troubleshooting-guide.md` | 트러블슈팅 |
-| `docs/otel-demo-test.md` | OTel Demo 실습 |
+| `docs/architecture/architecture-guide.md` | OpenTelemetry 아키텍처 |
+| `docs/collector/collector-guide.md` | Collector 파이프라인 설정 |
+| `docs/instrumentation/instrumentation-guide.md` | SDK 계측 (자동/수동) |
+| `docs/signals/tracing-guide.md` | Distributed Tracing |
+| `docs/signals/metrics-guide.md` | OTLP 메트릭 수집 |
+| `docs/signals/logging-guide.md` | 로그 수집 (Filelog Receiver) |
+| `docs/instrumentation/sampling-guide.md` | Sampling 전략 |
+| `docs/instrumentation/backend-integration-guide.md` | 백엔드 연동 (Tempo, Prometheus, Loki) |
+| `docs/operations/troubleshooting-guide.md` | 트러블슈팅 |
+| `docs/practice/otel-demo-test.md` | OTel Demo 실습 |
 
 ---
 

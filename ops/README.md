@@ -15,10 +15,10 @@ OpenTelemetry를 실제로 배포하거나 실습할 때 사용하는 설정과 
 |------|------|
 | 설치 방식 선택 | [../docs/install/install.md](../docs/install/install.md) |
 | EKS Helm 설치 | [../docs/install/install-helm.md](../docs/install/install-helm.md) |
-| Collector 파이프라인 이해 | [../docs/collector-guide.md](../docs/collector-guide.md) |
-| 앱 자동 계측 | [../docs/instrumentation-guide.md](../docs/instrumentation-guide.md) |
-| End-to-End 실습 | [../docs/otel-demo-test.md](../docs/otel-demo-test.md) |
-| 문제 해결 | [../docs/troubleshooting-guide.md](../docs/troubleshooting-guide.md) |
+| Collector 파이프라인 이해 | [../docs/collector/collector-guide.md](../docs/collector/collector-guide.md) |
+| 앱 자동 계측 | [../docs/instrumentation/instrumentation-guide.md](../docs/instrumentation/instrumentation-guide.md) |
+| End-to-End 실습 | [../docs/practice/otel-demo-test.md](../docs/practice/otel-demo-test.md) |
+| 문제 해결 | [../docs/operations/troubleshooting-guide.md](../docs/operations/troubleshooting-guide.md) |
 
 ## 관리 원칙
 
