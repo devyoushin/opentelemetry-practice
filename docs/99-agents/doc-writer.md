@@ -24,6 +24,6 @@ OpenTelemetry SDK 계측과 Collector 파이프라인에 대한 기술 문서를
 5. 트러블슈팅 섹션 포함
 
 ## 출력 형식
-- 서비스 문서: `templates/service-doc.md` 형식 준수
-- 런북: `templates/runbook.md` 형식 준수
+- 서비스 문서: `91-templates/service-doc.md` 형식 준수
+- 런북: `91-templates/runbook.md` 형식 준수
 - 한국어 작성, 기술 용어는 영어 병기

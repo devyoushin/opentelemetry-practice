@@ -319,4 +319,4 @@ pkill -f "kubectl port-forward"
 | Step 7 | 메트릭 없음 | Prometheus scrape 설정, Collector `:8889` 엔드포인트 확인 |
 | 전체 | 스팬 드랍 | Collector `:8888/metrics`에서 `dropped_spans` 확인 |
 
-더 자세한 문제 해결은 [troubleshooting-guide.md](../operations/troubleshooting-guide.md) 참고.
+더 자세한 문제 해결은 [troubleshooting-guide.md](../07-operations/troubleshooting-guide.md) 참고.

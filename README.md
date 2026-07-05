@@ -7,23 +7,23 @@ EKS 환경에서 OpenTelemetry Operator와 Collector를 사용해 traces, metric
 | 목적 | 문서 |
 |------|------|
 | 전체 문서 목차 보기 | [docs/README.md](docs/README.md) |
-| 설치 방식 고르기 | [docs/install/install.md](docs/install/install.md) |
-| EKS에 Helm으로 설치하기 | [docs/install/install-helm.md](docs/install/install-helm.md) |
-| 전체 아키텍처 이해하기 | [docs/architecture/architecture-guide.md](docs/architecture/architecture-guide.md) |
-| Collector 파이프라인 이해하기 | [docs/collector/collector-guide.md](docs/collector/collector-guide.md) |
-| 직접 실습하기 | [docs/practice/otel-demo-test.md](docs/practice/otel-demo-test.md) |
-| 장애를 진단하기 | [docs/operations/troubleshooting-guide.md](docs/operations/troubleshooting-guide.md) |
+| 설치 방식 고르기 | [docs/01-installation/install.md](docs/01-installation/install.md) |
+| EKS에 Helm으로 설치하기 | [docs/01-installation/install-helm.md](docs/01-installation/install-helm.md) |
+| 전체 아키텍처 이해하기 | [docs/02-architecture/architecture-guide.md](docs/02-architecture/architecture-guide.md) |
+| Collector 파이프라인 이해하기 | [docs/05-collector/collector-guide.md](docs/05-collector/collector-guide.md) |
+| 직접 실습하기 | [docs/06-practice/otel-demo-test.md](docs/06-practice/otel-demo-test.md) |
+| 장애를 진단하기 | [docs/07-operations/troubleshooting-guide.md](docs/07-operations/troubleshooting-guide.md) |
 
 ## 추천 학습 순서
 
-1. [설치 안내](docs/install/install.md)
-2. [아키텍처](docs/architecture/architecture-guide.md)
-3. [Collector 파이프라인](docs/collector/collector-guide.md)
-4. [Tracing](docs/signals/tracing-guide.md), [Metrics](docs/signals/metrics-guide.md), [Logging](docs/signals/logging-guide.md)
-5. [계측](docs/instrumentation/instrumentation-guide.md), [샘플링](docs/instrumentation/sampling-guide.md)
-6. [백엔드 연동](docs/instrumentation/backend-integration-guide.md)
-7. [End-to-End 실습](docs/practice/otel-demo-test.md)
-8. [트러블슈팅](docs/operations/troubleshooting-guide.md)
+1. [설치 안내](docs/01-installation/install.md)
+2. [아키텍처](docs/02-architecture/architecture-guide.md)
+3. [Collector 파이프라인](docs/05-collector/collector-guide.md)
+4. [Tracing](docs/03-signals/tracing-guide.md), [Metrics](docs/03-signals/metrics-guide.md), [Logging](docs/03-signals/logging-guide.md)
+5. [계측](docs/04-instrumentation/instrumentation-guide.md), [샘플링](docs/04-instrumentation/sampling-guide.md)
+6. [백엔드 연동](docs/04-instrumentation/backend-integration-guide.md)
+7. [End-to-End 실습](docs/06-practice/otel-demo-test.md)
+8. [트러블슈팅](docs/07-operations/troubleshooting-guide.md)
 
 ## 디렉터리 구조
 

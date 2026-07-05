@@ -224,6 +224,6 @@ Prometheus에서 해당 시간대 메트릭 조회
 ## 참고 링크
 
 - [OpenTelemetry 공식 문서](https://opentelemetry.io/docs/)
-- [OTel Collector 아키텍처](https://opentelemetry.io/docs/collector/architecture/)
+- [OTel Collector 아키텍처](https://opentelemetry.io/docs/05-collector/architecture/)
 - [OTel Operator (Kubernetes)](https://opentelemetry.io/docs/kubernetes/operator/)
 - [Grafana Tempo 공식 문서](https://grafana.com/docs/tempo/latest/)

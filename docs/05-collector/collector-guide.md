@@ -262,6 +262,6 @@ service:
 
 ## 참고
 
-- [공식문서 - Collector](https://opentelemetry.io/docs/collector/)
-- [공식문서 - Receivers](https://opentelemetry.io/docs/collector/configuration/#receivers)
-- [공식문서 - Processors](https://opentelemetry.io/docs/collector/configuration/#processors)
+- [공식문서 - Collector](https://opentelemetry.io/docs/05-collector/)
+- [공식문서 - Receivers](https://opentelemetry.io/docs/05-collector/configuration/#receivers)
+- [공식문서 - Processors](https://opentelemetry.io/docs/05-collector/configuration/#processors)

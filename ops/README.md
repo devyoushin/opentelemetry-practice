@@ -13,12 +13,12 @@ OpenTelemetry를 실제로 배포하거나 실습할 때 사용하는 설정과 
 
 | 작업 | 문서 |
 |------|------|
-| 설치 방식 선택 | [../docs/install/install.md](../docs/install/install.md) |
-| EKS Helm 설치 | [../docs/install/install-helm.md](../docs/install/install-helm.md) |
-| Collector 파이프라인 이해 | [../docs/collector/collector-guide.md](../docs/collector/collector-guide.md) |
-| 앱 자동 계측 | [../docs/instrumentation/instrumentation-guide.md](../docs/instrumentation/instrumentation-guide.md) |
-| End-to-End 실습 | [../docs/practice/otel-demo-test.md](../docs/practice/otel-demo-test.md) |
-| 문제 해결 | [../docs/operations/troubleshooting-guide.md](../docs/operations/troubleshooting-guide.md) |
+| 설치 방식 선택 | [../docs/01-installation/install.md](../docs/01-installation/install.md) |
+| EKS Helm 설치 | [../docs/01-installation/install-helm.md](../docs/01-installation/install-helm.md) |
+| Collector 파이프라인 이해 | [../docs/05-collector/collector-guide.md](../docs/05-collector/collector-guide.md) |
+| 앱 자동 계측 | [../docs/04-instrumentation/instrumentation-guide.md](../docs/04-instrumentation/instrumentation-guide.md) |
+| End-to-End 실습 | [../docs/06-practice/otel-demo-test.md](../docs/06-practice/otel-demo-test.md) |
+| 문제 해결 | [../docs/07-operations/troubleshooting-guide.md](../docs/07-operations/troubleshooting-guide.md) |
 
 ## 관리 원칙
 
